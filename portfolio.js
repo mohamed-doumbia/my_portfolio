@@ -36,31 +36,53 @@ document.addEventListener("DOMContentLoaded", function () {
   // Données des projets
   const projects = [
     {
-      title: "Application E-commerce",
+      title: "Application E-commerce Web",
       description:
-        "Une application ReactJS avec backend Node.js pour un site E-commerce.",
+        "Une application ReactJS avec backend Node.jspour la gestion des ventes, de la clientèlle,employé et analyse sur le flux de vente..",
       video: "videos/site_ecommerce.mp4",
       tags: ["ReactJS", "Tailwindcss", "Node.js", "Mysql"],
-      category: ["fullstack", "web"],
+      category: ["fullstack", "web"], 
+      github: "https://github.com/mohamed-doumbia/react_ecommerce_app"
     },
     {
-      title: "Application E-commerce",
+      title: "Application E-commerce Mobile",
       description:
         "Application Flutter avec bakckend Django pour la gestion des ventes, de la clientèlle,employé et analyse sur le flux de vente.",
-
       video: "videos/fpr2.mp4",
-      tags: ["Flutter", "Django", "PostGreSql"],
+      tags: ["Flutter", "Django", "PostgreSQL"],
       category: ["fullstack", "mobile"],
+      github: "https://github.com/mohamed-doumbia/flutter-e-commerce-app"
     },
     {
-      title: "Application pour la gestion Immobilière",
+      title: "Application Web pour la gestion de Transport & Restauration",
       description:
-        "Application React native avec backend Node.js pour la gestion immobilière. Elle gère le paiement de location, recherche de maison à louer, ajout d'appartement.Elle est encore en phase de développement",
-      video: "videos/r1.mp4",
-      tags: ["React native", "Node.js", "Mysql"],
+        "Application ReactJS avec backend Spring boot pour la gestion de Transport & Restauration. Elle gère le paiement en ligne, de location de Transport personel, de Réservation des hotels et restaurants.",
+      video: "videos/site_transport_resto.mp4",
+      tags: ["ReactJS", "Tailwindcss", "Spring boot", "PostgreSQL"],
+      category: ["fullstack", "web"],
+      github: "https://github.com/mohamed-doumbia/transport-app"
+    },
+    {
+      title: "Application Mobile pour la gestion Bancaire & Agricole",
+      description:
+        "Application Flutter avec backend Spring boot pour la gestion de banque et agricole. Elle gère la facilité de financement entre les banques et les agriculteurs en permettant aux banques d'investir sur les agriculteurs fiables grace à un algorithme de scoring, permettre aux agriculteurs d'entrer en contact avec les acheteurs.",
+      images: [
+        "images/agri1.jpg", 
+        "images/agri2.jpg",
+        "images/agri4.jpg", 
+        "images/agri5.jpg",
+        "images/agri8.jpg",
+        "images/agri3.jpg",
+        "images/agri7.jpg",
+        "images/agri6.jpg"
+      ],
+      tags: ["Flutter", "Spring boot", "PostgreSQL"],
       category: ["fullstack", "mobile"],
     },
   ];
+
+  const projectsPerPage = 4; // nombre de projets par page
+  let currentPage = 1;
 
   // Afficher les projets
   function displayProjects(filter = "all") {
@@ -74,28 +96,62 @@ document.addEventListener("DOMContentLoaded", function () {
     filteredProjects.forEach((project) => {
       const projectCard = document.createElement("div");
       projectCard.className = "project-card";
+
       projectCard.innerHTML = `
-                <div class="project-image">
-                    <video controls width="95%" >
-                  <source src="${project.video}" type="video/mp4">
-                      Votre navigateur ne supporte pas la vidéo HTML5.
-                  </video>
-                </div>
-                <div class="project-info">
-                    <h3>${project.title}</h3>
-                    <p>${project.description}</p>
-                    <div class="project-tags">
-                        ${project.tags
-                          .map((tag) => `<span>${tag}</span>`)
-                          .join("")}
-                    </div>
-                    <div class="project-links">
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
-                        <a href="#"><i class="fab fa-github"></i> Code source</a>
-                    </div>
-                </div>
-            `;
+        <div class="project-image">
+          ${project.video
+            ? `<video controls width="95%">
+                <source src="${project.video}" type="video/mp4">
+               </video>`
+            : ""}
+          ${project.images
+            ? `<img src="${project.images[0]}" class="project-img" data-index="0"/>`
+            : ""}
+          ${project.images && project.images.length > 1
+            ? `<button class="prev-btn">⬅️</button>
+               <button class="next-btn">➡️</button>` 
+            : ""}
+        </div>
+        <div class="project-info">
+          <h3>${project.title}</h3>
+          <p>${project.description}</p>
+          <div class="project-tags">
+            ${project.tags.map((tag) => `<span>${tag}</span>`).join("")}
+          </div>
+          <div class="project-links">
+            <a href="${project.github}" target="_blank">
+              <i class="fab fa-github"></i> Code source
+            </a>
+            <a href="https://github.com/dashboard" target="_blank">
+              <i class="fab fa-github"></i> Vister mon github
+            </a>
+          </div>
+        </div>
+      `;
+
       projectsGrid.appendChild(projectCard);
+    });
+
+    // Pagination des images
+    const allProjectCards = document.querySelectorAll(".project-card");
+    allProjectCards.forEach((card, projectIndex) => {
+      const images = projects.filter(p => filter === "all" || p.category.includes(filter))[projectIndex].images;
+      if (!images || images.length <= 1) return;
+
+      const imgElement = card.querySelector(".project-img");
+      const prevBtn = card.querySelector(".prev-btn");
+      const nextBtn = card.querySelector(".next-btn");
+      let imgIndex = 0;
+
+      prevBtn.addEventListener("click", () => {
+        imgIndex = (imgIndex - 1 + images.length) % images.length;
+        imgElement.src = images[imgIndex];
+      });
+
+      nextBtn.addEventListener("click", () => {
+        imgIndex = (imgIndex + 1) % images.length;
+        imgElement.src = images[imgIndex];
+      });
     });
   }
 

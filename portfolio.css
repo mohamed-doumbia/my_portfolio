@@ -720,3 +720,42 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* Boutons de navigation des images */
+.project-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-image img {
+  max-width: 50%;
+  border-radius: 10px;
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.prev-btn:hover, .next-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
