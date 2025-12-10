@@ -40,6 +40,30 @@ document.addEventListener("DOMContentLoaded", function () {
       category: ["fullstack", "web"],
       github: "https://github.com/mohamed-doumbia/react_ecommerce_app",
     },
+
+    
+
+
+    {
+      title: "Application Gestion d'activité commerciale",
+      description:
+        "Une application Flutter avec backend Spring-boot pour la gestion des ventes, des succursales de la clientèlle, employé, de stocks, des dépenses  et analyse sur le flux de vente..",
+      video: "videos/pub-app-commande.mp4",
+      tags: ["Flutter", "Spring-boot", "PostgreSql"],
+      category: ["fullstack", "mobile"],
+      github: "https://github.com/mohamed-doumbia/gestion-commande-app-flutter",
+    },
+
+     {
+      title: "Application Gestion de voyage(billet d'avions)",
+      description:
+        "Une application Flutter avec backend Spring-boot pour la gestion de voyages, réserver un billet d'avions depuis l'application, suivis en temps, un départ etc.",
+      video: "videos/gestion-de-voyage.mp4",
+      tags: ["Flutter", "Spring-boot", "MySql"],
+      category: ["fullstack", "mobile"],
+      github: "https://github.com/mohamed-doumbia/smile-go-app-new-version",
+    },
+
     {
       title: "Application E-commerce Mobile",
       description:
